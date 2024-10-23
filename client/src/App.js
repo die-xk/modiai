@@ -1,5 +1,7 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from './firebase';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Partners from './components/Partners';
@@ -7,7 +9,10 @@ import HowItWorks from './components/HowItWorks';
 import CaseStudies from './components/CaseStudies';
 import Footer from './components/Footer';
 import AppLayout from './components/AppLayout';
+import Dashboard from './components/Dashboard';
 import './App.css';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 // Home component
 const Home = () => (
@@ -37,10 +42,27 @@ const Services = () => (
 );
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Router>
       <Routes>
-        <Route path="/app/*" element={<AppLayout />} />
+        <Route path="/app/*" element={user ? <AppLayout /> : <Navigate to="/login" />} />
+        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
         <Route
           path="*"
           element={
@@ -51,6 +73,8 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
                 </Routes>
               </main>
               <Footer />

@@ -15,16 +15,16 @@ const Partners = () => {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {/* Replace the src attributes with your actual logo images */}
           <div className="col-span-1 flex justify-center items-center">
-            <img className="h-12" src="/partner-logo-1.png" alt="Partner 1" />
+            <img className="h-12" src="/IBM.jpg" alt="Partner 1" />
           </div>
           <div className="col-span-1 flex justify-center items-center">
-            <img className="h-12" src="/partner-logo-2.png" alt="Partner 2" />
+            <img className="h-12" src="/Simplified.jpeg" alt="Partner 2" />
           </div>
           <div className="col-span-1 flex justify-center items-center">
-            <img className="h-12" src="/partner-logo-3.png" alt="Partner 3" />
+            <img className="h-12" src="/BlackCube.jpeg" alt="Partner 3" />
           </div>
           <div className="col-span-1 flex justify-center items-center">
-            <img className="h-12" src="/partner-logo-4.png" alt="Partner 4" />
+            <img className="h-12" src="/logo-modified.png" alt="Partner 4" />
           </div>
         </div>
       </div>

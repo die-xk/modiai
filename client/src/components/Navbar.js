@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiChevronDown, FiX } from 'react-icons/fi';
 import { FaRocket, FaCog, FaChartBar, FaBook, FaGraduationCap, FaFolder } from 'react-icons/fa';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [productDropdown, setProductDropdown] = useState(false);
   const [resourcesDropdown, setResourcesDropdown] = useState(false);
@@ -78,7 +79,7 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
               <img className="h-8 w-auto" src="/logo.png" alt="Company Logo" />
-              <span className="ml-2 text-xl font-bold">Company</span>
+              <span className="ml-2 text-xl font-bold">Modi AI</span>
             </Link>
           </div>
 
@@ -94,8 +95,11 @@ const Navbar = () => {
 
           {/* Right: Button (hidden on mobile) */}
           <div className="hidden md:block">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Contact Us
+            <button 
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => navigate('/login')}
+            >
+              Get Started
             </button>
           </div>
 
@@ -127,7 +131,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between py-6 px-4 border-b border-gray-700">
             <Link to="/" className="flex items-center" onClick={() => setIsOpen(false)}>
               <img className="h-10 w-auto" src="/logo.png" alt="Company Logo" />
-              <span className="ml-2 text-2xl font-bold">Company</span>
+              <span className="ml-2 text-2xl font-bold">Modi AI</span>
             </Link>
             <button
               onClick={() => setIsOpen(false)}
@@ -149,10 +153,16 @@ const Navbar = () => {
             <DropdownMenu options={resourceOptions} isOpen={resourcesDropdown} setIsOpen={setResourcesDropdown} title="Resources" isMobile={true} />
           </div>
 
-          {/* Contact Us button */}
+          {/* Login button */}
           <div className="py-6 px-4 border-t border-gray-700">
-            <button className="w-full py-3 px-4 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md text-lg" onClick={() => setIsOpen(false)}>
-              Contact Us
+            <button 
+              className="w-full py-3 px-4 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md text-lg" 
+              onClick={() => {
+                setIsOpen(false);
+                navigate('/login');
+              }}
+            >
+              Get Started
             </button>
           </div>
         </div>
