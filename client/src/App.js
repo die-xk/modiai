@@ -14,6 +14,7 @@ import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import WhoWeAre from './components/WhoWeAre';
+import LoadingPage from './components/LoadingPage';
 
 // Home component
 const Home = () => (
@@ -56,7 +57,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (
