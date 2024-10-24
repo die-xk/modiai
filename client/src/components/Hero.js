@@ -3,55 +3,55 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 const Hero = () => {
   return (
-    <div className="h-[calc(100vh-4rem)] bg-gray-100 flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col md:flex-row items-center">
+    <div className="min-h-[calc(100vh-4rem)] bg-gray-100 flex items-center p-6 sm:p-8 sm:mt-12 md:p-12 lg:p-22">
+      <div className="max-w-7xl mx-auto w-full">
+        <div className="flex flex-col lg:flex-row items-center">
           {/* Left Column */}
-          <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center md:text-left">
-              Welcome to Our Amazing Product
+          <div className="lg:w-1/2 lg:pr-8 mb-8 lg:mb-0">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-center lg:text-left">
+              Transform Your Business with AI in 3 Simple Steps
             </h1>
-            <p className="text-xl mb-6">
-              Discover how our solution can transform your business and boost your productivity.
+            <p className="text-lg sm:text-xl mb-8 text-center lg:text-left">
+              Discover how easy AI adoption can be. Get a clear, actionable roadmap tailored to your business in just 3 steps.
             </p>
-            <ul className="mb-6 space-y-2">
+            <ul className="mb-8 space-y-4">
               <li className="flex items-center">
-                <FaCheckCircle className="text-green-500 mr-2" />
-                <span>Increase efficiency by 50%</span>
+                <FaCheckCircle className="text-green-500 mr-3 flex-shrink-0 text-xl" />
+                <span>Personalize by industry and goals.</span>
               </li>
               <li className="flex items-center">
-                <FaCheckCircle className="text-green-500 mr-2" />
-                <span>Reduce costs up to 30%</span>
+                <FaCheckCircle className="text-green-500 mr-3 flex-shrink-0 text-xl" />
+                <span>Step-by-step AI guidance.</span>
               </li>
               <li className="flex items-center">
-                <FaCheckCircle className="text-green-500 mr-2" />
-                <span>Improve customer satisfaction</span>
+                <FaCheckCircle className="text-green-500 mr-3 flex-shrink-0 text-xl" />
+                <span>Automate and boost efficiency.</span>
               </li>
               <li className="flex items-center">
-                <FaCheckCircle className="text-green-500 mr-2" />
-                <span>24/7 customer support</span>
+                <FaCheckCircle className="text-green-500 mr-3 flex-shrink-0 text-xl" />
+                <span>Cut costs, grow revenue.</span>
               </li>
               <li className="flex items-center">
-                <FaCheckCircle className="text-green-500 mr-2" />
-                <span>Easy integration with existing systems</span>
+                <FaCheckCircle className="text-green-500 mr-3 flex-shrink-0 text-xl" />
+                <span>Receive your AI roadmap in 24 hours.</span>
               </li>
             </ul>
-            <div className="space-x-4">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <div className="space-x-4 flex justify-center lg:justify-start">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
                 Get Started
               </button>
-              <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+              <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-6 border border-gray-400 rounded-lg shadow transition duration-300">
                 Learn More
               </button>
             </div>
           </div>
           
           {/* Right Column */}
-          <div className="md:w-1/2">
+          <div className="lg:w-1/2 mt-12 lg:mt-0">
             <img 
               src="/Sarari - Dark.png" 
               alt="Product showcase" 
-              className="rounded-lg shadow-xl"
+              className="rounded-lg shadow-xl mx-auto lg:mx-0 w-full max-w-md"
             />
           </div>
         </div>

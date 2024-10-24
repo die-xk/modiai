@@ -5,6 +5,8 @@ import { auth } from '../firebase';
 import { FaUser, FaSignOutAlt, FaUserCircle, FaCreditCard, FaRocket, FaChartLine, FaSmile, FaCog, FaTimes, FaStore, FaChartBar, FaHospital, FaIndustry, FaLaptopCode, FaGraduationCap, FaHome, FaHotel, FaTruck, FaSatelliteDish, FaBolt, FaEllipsisH, FaBullhorn, FaHandshake, FaCogs, FaUsers, FaHeadset, FaBox, FaTruckLoading, FaDatabase, FaBalanceScale, FaChessKing, FaPiggyBank, FaLightbulb, FaShieldAlt, FaUserClock, FaWarehouse, FaQuestionCircle, FaUserFriends, FaDollarSign, FaListOl, FaStar, FaCheck, FaClock, FaDownload } from 'react-icons/fa';
 import ReactCountryFlag from "react-country-flag";
 
+const apiUrl = process.env.REACT_APP_API_URL; // Define the API URL here
+
 const UserDropdown = ({ onSignOut }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -661,7 +663,6 @@ const UpgradeModal = ({ isOpen, onClose, onUpgrade }) => {
 };
 
 const DashboardHome = () => {
-  const userName = "John"; // Replace with actual user name from your auth system
   const [currentStep, setCurrentStep] = useState(0);
   const [formProgress, setFormProgress] = useState(0);
   const [isFirstFormCompleted, setIsFirstFormCompleted] = useState(false);
@@ -680,6 +681,10 @@ const DashboardHome = () => {
     otherArea: ''
   });
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+
+  // Get the current user
+  const user = auth.currentUser;
+  const userName = user ? user.displayName || "User" : "Guest"; // Use displayName if available, otherwise fallback
 
   const handleGetStarted = () => {
     setCurrentStep(1);
@@ -730,17 +735,43 @@ const DashboardHome = () => {
     }
   };
 
-  const handleFormCompletion = () => {
-    // Here you can add logic to handle the completed form data
-    console.log("Form completed!", {
-      selectedIndustry,
+  const handleFormCompletion = async () => {
+    if (!user) {
+      console.error('User not authenticated');
+      return;
+    }
+
+    const formData = {
+      userId: user.uid, // Use the Firebase user ID
+      industry: selectedIndustry,
       otherIndustry,
-      selectedDepartments,
-      selectedGoals,
-      selectedSize,
-      selectedCountry,
+      departments: selectedDepartments,
+      goals: selectedGoals,
+      companySize: selectedSize,
+      country: selectedCountry,
       otherCountry
-    });
+    };
+
+    console.log('API URL:', apiUrl); // Debugging line
+
+    try {
+      const response = await fetch(`${apiUrl}/api/save-form-data`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save form data');
+      }
+
+      console.log('Form data saved successfully');
+    } catch (error) {
+      console.error('Error saving form data:', error);
+    }
+
     setIsFirstFormCompleted(true);
     setCurrentStep(0); // Reset the form
   };

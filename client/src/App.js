@@ -13,6 +13,7 @@ import Dashboard from './components/Dashboard';
 import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import WhoWeAre from './components/WhoWeAre';
 
 // Home component
 const Home = () => (
@@ -75,6 +76,7 @@ function App() {
                   <Route path="/services" element={<Services />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
+                  <Route path="/who-we-are" element={<WhoWeAre />} />
                 </Routes>
               </main>
               <Footer />
