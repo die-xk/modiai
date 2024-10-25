@@ -15,6 +15,8 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import WhoWeAre from './components/WhoWeAre';
 import LoadingPage from './components/LoadingPage';
+import AIImplementation from './components/AIImplementation';
+import UseCases from './components/UseCases';
 
 // Home component
 const Home = () => (
@@ -78,6 +80,8 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/who-we-are" element={<WhoWeAre />} />
+                  <Route path="/ai-implementation" element={<AIImplementation />} />
+                  <Route path="/use-cases" element={<UseCases />} />
                 </Routes>
               </main>
               <Footer />

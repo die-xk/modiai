@@ -3,7 +3,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 const Hero = () => {
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gray-100 flex items-center p-6 sm:p-8 sm:mt-12 md:p-12 lg:p-22">
+    <div className="min-h-[calc(100vh-4rem)] bg-gray-100 flex items-center p-6 sm:p-8 mt-16 sm:mt-0 md:p-12 lg:p-22">
       <div className="max-w-7xl mx-auto w-full">
         <div className="flex flex-col lg:flex-row items-center">
           {/* Left Column */}

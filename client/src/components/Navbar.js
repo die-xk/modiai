@@ -11,9 +11,8 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
 
   const productOptions = [
-    { icon: <FaRocket className="text-xl" />, title: 'Launch', description: 'Get started quickly' },
-    { icon: <FaCog className="text-xl" />, title: 'Automate', description: 'Streamline your workflow' },
-    { icon: <FaChartBar className="text-xl" />, title: 'Reports', description: 'Analyze your data' },
+    { icon: <FaRocket className="text-xl" />, title: 'AI Implementation', description: 'Start your AI journey', link: '/ai-implementation' },
+    { icon: <FaCog className="text-xl" />, title: 'Use Cases', description: 'Explore AI applications', link: '/use-cases' },
   ];
 
   const resourceOptions = [
@@ -53,7 +52,7 @@ const Navbar = () => {
             {options.map((option, index) => (
               <Link
                 key={index}
-                to="#"
+                to={option.link}
                 className="flex items-center px-4 py-2 text-base text-gray-700 hover:bg-gray-100"
                 role="menuitem"
                 onClick={() => setIsOpen(false)}
