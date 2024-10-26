@@ -17,6 +17,7 @@ import WhoWeAre from './components/WhoWeAre';
 import LoadingPage from './components/LoadingPage';
 import AIImplementation from './components/AIImplementation';
 import UseCases from './components/UseCases';
+import Pricing from './components/Pricing';
 
 // Home component
 const Home = () => (
@@ -82,6 +83,7 @@ function App() {
                   <Route path="/who-we-are" element={<WhoWeAre />} />
                   <Route path="/ai-implementation" element={<AIImplementation />} />
                   <Route path="/use-cases" element={<UseCases />} />
+                  <Route path="/pricing" element={<Pricing />} />
                 </Routes>
               </main>
               <Footer />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUserPlus, FaLock, FaRocket, FaIndustry, FaBullseye, FaMapMarkerAlt, FaClipboardCheck, FaChartLine } from 'react-icons/fa';
+import { FaUserPlus, FaLock, FaRocket, FaIndustry, FaBullseye, FaMapMarkerAlt, FaClipboardCheck, FaChartLine, FaChevronRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const HowItWorks = () => {
@@ -92,15 +92,18 @@ const HowItWorks = () => {
             {steps.map((step) => (
               <div
                 key={step.id}
-                className={`cursor-pointer p-4 mb-2 rounded-lg transition-colors duration-200 ${
+                className={`cursor-pointer p-4 mb-4 rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-md flex items-center justify-between ${
                   activeStep === step.id
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white hover:bg-gray-100'
+                    ? 'bg-blue-500 text-white shadow-lg'
+                    : 'bg-white hover:bg-gray-50'
                 }`}
                 onClick={() => setActiveStep(step.id)}
               >
-                <h3 className="font-semibold">{step.title}</h3>
-                <p className="text-sm mt-1">{step.description}</p>
+                <div>
+                  <h3 className="font-semibold">{step.title}</h3>
+                  <p className="text-sm mt-1">{step.description}</p>
+                </div>
+                <FaChevronRight className={`ml-2 transition-transform duration-200 ${activeStep === step.id ? 'rotate-90' : ''}`} />
               </div>
             ))}
           </div>

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, OAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDPZQBvWEbGZjvLcuPQHYvRHIEo61SD7S8",
@@ -14,4 +14,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth };
+// Initialize providers
+const googleProvider = new GoogleAuthProvider();
+const microsoftProvider = new OAuthProvider('microsoft.com');
+const appleProvider = new OAuthProvider('apple.com');
+
+export { auth, googleProvider, microsoftProvider, appleProvider };

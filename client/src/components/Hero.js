@@ -1,7 +1,10 @@
 import React from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-gray-100 flex items-center p-6 sm:p-8 mt-16 sm:mt-0 md:p-12 lg:p-22">
       <div className="max-w-7xl mx-auto w-full">
@@ -37,21 +40,27 @@ const Hero = () => {
               </li>
             </ul>
             <div className="space-x-4 flex justify-center lg:justify-start">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+              <button 
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+                onClick={() => navigate('/signup')}
+              >
                 Get Started
               </button>
-              <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-6 border border-gray-400 rounded-lg shadow transition duration-300">
+              <button 
+                className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-6 border border-gray-400 rounded-lg shadow transition duration-300"
+                onClick={() => navigate('/ai-implementation')}
+              >
                 Learn More
               </button>
             </div>
           </div>
           
           {/* Right Column */}
-          <div className="lg:w-1/2 mt-12 lg:mt-0">
+          <div className="lg:w-1/2 mt-12 lg:mt-0 flex justify-center items-center">
             <img 
               src="/Sarari - Dark.png" 
               alt="Product showcase" 
-              className="rounded-lg shadow-xl mx-auto lg:mx-0 w-full max-w-md"
+              className="rounded-lg shadow-xl w-full max-w-2xl object-cover"
             />
           </div>
         </div>
