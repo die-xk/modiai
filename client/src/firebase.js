@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, OAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDPZQBvWEbGZjvLcuPQHYvRHIEo61SD7S8",
-  authDomain: "modi-ai-3beda.firebaseapp.com",
-  projectId: "modi-ai-3beda",
-  storageBucket: "modi-ai-3beda.appspot.com",
-  messagingSenderId: "241058934218",
-  appId: "1:241058934218:web:f63ee20c208d901c1eb333"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
