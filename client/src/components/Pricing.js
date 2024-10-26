@@ -170,7 +170,6 @@ const Pricing = () => {
               "Access to resource recommendations",
               "30 days of email support post-delivery"
             ]}
-            cta="Get Started"
           />
 
           <PricingCard
@@ -185,7 +184,6 @@ const Pricing = () => {
               "1-hour virtual consultation with an AI expert",
               "60 days of priority email support"
             ]}
-            cta="Get Started"
             isPopular={true}
           />
 
@@ -202,7 +200,6 @@ const Pricing = () => {
               "90 days of ongoing support post-delivery",
               "Premium access to future updates and AI resources"
             ]}
-            cta="Get Started"
           />
         </div>
 

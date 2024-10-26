@@ -40,7 +40,7 @@ const UserDropdown = ({ onSignOut }) => {
         aria-haspopup="true"
       >
         <span className="sr-only">Open user menu</span>
-        <FaUser className="h-8 w-8 rounded-full" />
+        <FaUser className="h-8 w-8 rounded-full text-blue-500" />
       </button>
 
       {isOpen && (
@@ -54,7 +54,7 @@ const UserDropdown = ({ onSignOut }) => {
               }}
               className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-start"
             >
-              <item.icon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+              <item.icon className="mr-3 h-5 w-5 text-blue-500" aria-hidden="true" />
               <div className="text-left">
                 <p className="font-medium">{item.title}</p>
                 <p className="text-xs text-gray-500">{item.subtitle}</p>
@@ -71,12 +71,12 @@ const DashboardNavbar = ({ activeTab, setActiveTab, onSignOut }) => {
   const tabs = ['Dashboard', 'Projects', 'Tasks'];
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-gray-800 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-xl font-bold text-gray-800">Company Name</span>
+              <span className="text-2xl font-bold">Modi AI</span>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {tabs.map((tab) => (
@@ -85,8 +85,8 @@ const DashboardNavbar = ({ activeTab, setActiveTab, onSignOut }) => {
                   onClick={() => setActiveTab(tab)}
                   className={`${
                     activeTab === tab
-                      ? 'border-indigo-500 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                      ? 'border-blue-500 text-white'
+                      : 'border-transparent text-gray-300 hover:border-gray-300 hover:text-white'
                   } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
                 >
                   {tab}
@@ -674,22 +674,11 @@ const DashboardHome = () => {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [otherCountry, setOtherCountry] = useState('');
   const [isAIReadinessModalOpen, setIsAIReadinessModalOpen] = useState(false);
-  const [aiReadinessData, setAIReadinessData] = useState({
-    familiarity: 0,
-    usingAITools: null,
-    aiAreas: [],
-    otherArea: ''
-  });
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
 
   // Get the current user
   const user = auth.currentUser;
   const userName = user ? user.displayName || "User" : "Guest"; // Use displayName if available, otherwise fallback
-
-  const handleGetStarted = () => {
-    setCurrentStep(1);
-    setFormProgress(8); // 8% progress for starting the form
-  };
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -782,7 +771,11 @@ const DashboardHome = () => {
   };
 
   const handleContinue = () => {
-    if (formProgress >= 70) {
+    if (formProgress < 40) {
+      // If the company profile is not complete, start or continue from step 1
+      setCurrentStep(1);
+      setFormProgress(prevProgress => Math.max(prevProgress, 8)); // Ensure progress is at least 8%
+    } else if (formProgress >= 70) {
       setIsUpgradeModalOpen(true);
     } else {
       setIsAIReadinessModalOpen(true);
@@ -790,7 +783,6 @@ const DashboardHome = () => {
   };
 
   const handleAIReadinessNext = (data) => {
-    setAIReadinessData(data);
     setIsAIReadinessModalOpen(false);
     setFormProgress(70); // Update progress to 70%
     // Here you would typically move to the next question or step
@@ -954,7 +946,7 @@ const DashboardHome = () => {
     <div className="flex flex-col h-full">
       <div className="flex-grow max-w-4xl mx-auto w-full px-4 py-8 flex flex-col justify-between">
         <div>
-          <h1 className="text-3xl font-bold mb-6">
+          <h1 className="text-3xl font-bold mb-6 text-center">
             {formProgress >= 70 
               ? `Great progress, ${userName}! Your AI roadmap is taking shape.`
               : isFirstFormCompleted 
@@ -963,12 +955,12 @@ const DashboardHome = () => {
             }
           </h1>
           
-          <div className="mb-8">
+          <div className="mb-8 flex justify-center">
             <button 
               onClick={handleContinue}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105"
             >
-              {formProgress >= 70 ? "Create Personalized Roadmap" : "Continue"}
+              {formProgress === 0 ? "Get Started" : formProgress >= 70 ? "Create Personalized Roadmap" : "Continue"}
             </button>
           </div>
 

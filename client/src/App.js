@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase';
 import Navbar from './components/Navbar';
@@ -18,6 +18,8 @@ import LoadingPage from './components/LoadingPage';
 import AIImplementation from './components/AIImplementation';
 import UseCases from './components/UseCases';
 import Pricing from './components/Pricing';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
 
 // Home component
 const Home = () => (
@@ -47,12 +49,10 @@ const Services = () => (
 );
 
 function App() {
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
       setLoading(false);
     });
 
@@ -66,8 +66,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/app/*" element={user ? <AppLayout /> : <Navigate to="/login" />} />
-        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/app/*" element={<AppLayout />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
         <Route
           path="*"
           element={
