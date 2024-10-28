@@ -480,7 +480,35 @@ const AIReadinessModal = ({ isOpen, onClose, onNext }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onNext({ familiarity, usingAITools, aiAreas, otherArea });
+    
+    // Validate data before sending
+    if (familiarity === 0) {
+      alert('Please rate your AI familiarity');
+      return;
+    }
+    if (usingAITools === null) {
+      alert('Please indicate if you are using AI tools');
+      return;
+    }
+    if (aiAreas.length === 0) {
+      alert('Please select at least one AI area');
+      return;
+    }
+
+    // Log the data being sent
+    console.log('Submitting AI readiness data:', {
+      familiarity,
+      usingAITools,
+      aiAreas,
+      otherArea
+    });
+
+    onNext({
+      familiarity: Number(familiarity),
+      usingAITools: Boolean(usingAITools),
+      aiAreas: aiAreas,
+      otherArea: otherArea || null
+    });
   };
 
   if (!isOpen) return null;
@@ -731,19 +759,19 @@ const DashboardHome = () => {
     }
 
     const formData = {
-      userId: user.uid, // Use the Firebase user ID
+      userId: user.uid,
       industry: selectedIndustry,
-      otherIndustry,
+      otherIndustry: selectedIndustry === 'Others' ? otherIndustry : null,
       departments: selectedDepartments,
       goals: selectedGoals,
       companySize: selectedSize,
       country: selectedCountry,
-      otherCountry
+      otherCountry: selectedCountry === 'Others' ? otherCountry : null
     };
 
-    console.log('API URL:', apiUrl); // Debugging line
-
     try {
+      console.log('Sending initial form data:', formData); // Debug log
+
       const response = await fetch(`${apiUrl}/api/save-form-data`, {
         method: 'POST',
         headers: {
@@ -752,17 +780,20 @@ const DashboardHome = () => {
         body: JSON.stringify(formData),
       });
 
+      const responseData = await response.json();
+      console.log('Server response:', responseData); // Debug log
+
       if (!response.ok) {
-        throw new Error('Failed to save form data');
+        throw new Error(responseData.error || responseData.details || 'Failed to save form data');
       }
 
-      console.log('Form data saved successfully');
+      setIsFirstFormCompleted(true);
+      setCurrentStep(0);
+
     } catch (error) {
       console.error('Error saving form data:', error);
+      alert(`Failed to save form data: ${error.message}`);
     }
-
-    setIsFirstFormCompleted(true);
-    setCurrentStep(0); // Reset the form
   };
 
   const handleClose = () => {
@@ -782,11 +813,70 @@ const DashboardHome = () => {
     }
   };
 
-  const handleAIReadinessNext = (data) => {
-    setIsAIReadinessModalOpen(false);
-    setFormProgress(70); // Update progress to 70%
-    // Here you would typically move to the next question or step
-    console.log("AI Readiness Data:", data);
+  const handleAIReadinessNext = async (data) => {
+    if (!user) {
+      console.error('User not authenticated');
+      return;
+    }
+
+    try {
+      // Convert and validate the data
+      const formData = {
+        userId: user.uid,
+        aiFamiliarity: Number(data.familiarity), // Ensure it's a number
+        usingAiTools: Boolean(data.usingAITools), // Ensure it's a boolean
+        aiAreas: Array.isArray(data.aiAreas) ? data.aiAreas : [], // Ensure it's an array
+        otherAiArea: data.otherArea || null // Ensure null if empty
+      };
+
+      // Debug logs
+      console.log('Raw data received:', data);
+      console.log('Formatted form data:', formData);
+      console.log('API URL:', apiUrl);
+
+      // Validate data before sending
+      if (formData.aiFamiliarity === undefined || isNaN(formData.aiFamiliarity)) {
+        throw new Error('Invalid AI familiarity value');
+      }
+
+      const response = await fetch(`${apiUrl}/api/save-form-data`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData),
+      });
+
+      // Log the raw response
+      console.log('Raw response:', response);
+
+      // Try to parse the response
+      let responseData;
+      const responseText = await response.text();
+      try {
+        responseData = JSON.parse(responseText);
+        console.log('Parsed response data:', responseData);
+      } catch (e) {
+        console.error('Failed to parse response:', responseText);
+        throw new Error('Invalid response format from server');
+      }
+
+      if (!response.ok) {
+        throw new Error(responseData.error || responseData.details || 'Failed to save AI readiness data');
+      }
+
+      setIsAIReadinessModalOpen(false);
+      setFormProgress(70);
+
+    } catch (error) {
+      console.error('Error saving AI readiness data:', {
+        message: error.message,
+        stack: error.stack,
+        data: data // Log the original data
+      });
+      alert(`Failed to save AI readiness data: ${error.message}`);
+    }
   };
 
   const handleUpgrade = () => {

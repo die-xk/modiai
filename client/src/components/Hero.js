@@ -6,7 +6,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gray-100 flex items-center p-6 sm:p-8 mt-16 sm:mt-0 md:p-12 lg:p-22">
+    <div className="min-h-[calc(100vh-4rem)] bg-gray-100 flex items-center px-4 pt-8 pb-4 sm:p-8 mt-0 sm:mt-0 md:p-12 lg:p-22">
       <div className="max-w-7xl mx-auto w-full">
         <div className="flex flex-col lg:flex-row items-center">
           {/* Left Column */}

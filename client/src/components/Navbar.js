@@ -11,14 +11,36 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
 
   const productOptions = [
-    { icon: <FaRocket className="text-xl" />, title: 'AI Implementation', description: 'Start your AI journey', link: '/ai-implementation' },
-    { icon: <FaCog className="text-xl" />, title: 'Use Cases', description: 'Explore AI applications', link: '/use-cases' },
+    { 
+      icon: <FaRocket className="text-xl text-blue-500" />, 
+      title: 'AI Implementation', 
+      description: 'Start your AI journey', 
+      link: '/ai-implementation' 
+    },
+    { 
+      icon: <FaCog className="text-xl text-blue-500" />, 
+      title: 'Use Cases', 
+      description: 'Explore AI applications', 
+      link: '/use-cases' 
+    },
   ];
 
   const resourceOptions = [
-    { icon: <FaBook className="text-xl" />, title: 'Blog', description: 'Latest updates and guides' },
-    { icon: <FaGraduationCap className="text-xl" />, title: 'Academy', description: 'Learn from experts' },
-    { icon: <FaFolder className="text-xl" />, title: 'Case Studies', description: 'Real-world examples' },
+    { 
+      icon: <FaBook className="text-xl text-blue-500" />, 
+      title: 'Blog', 
+      description: 'Latest updates and guides' 
+    },
+    { 
+      icon: <FaGraduationCap className="text-xl text-blue-500" />, 
+      title: 'Academy', 
+      description: 'Learn from experts' 
+    },
+    { 
+      icon: <FaFolder className="text-xl text-blue-500" />, 
+      title: 'Case Studies', 
+      description: 'Real-world examples' 
+    },
   ];
 
   useEffect(() => {
@@ -84,9 +106,9 @@ const Navbar = () => {
           {/* Middle: Navigation Links (hidden on mobile) */}
           <div className="hidden lg:block" ref={dropdownRef}>
             <div className="ml-10 flex items-baseline space-x-4">
-              <Link to="/who-we-are" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Who we are</Link>
+              <Link to="/who-we-are" className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Who we are</Link>
               <DropdownMenu options={productOptions} isOpen={productDropdown} setIsOpen={setProductDropdown} title="Product" />
-              <Link to="/pricing" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Pricing</Link>
+              <Link to="/pricing" className="px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Pricing</Link>
               <DropdownMenu options={resourceOptions} isOpen={resourcesDropdown} setIsOpen={setResourcesDropdown} title="Resources" />
             </div>
           </div>
