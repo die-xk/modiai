@@ -57,40 +57,56 @@ const Navbar = () => {
     };
   }, []);
 
-  const DropdownMenu = ({ options, isOpen, setIsOpen, title, isMobile = false }) => (
-    <div className={`${isMobile ? 'w-full' : 'relative group'}`}>
-      <button
-        className={`flex items-center justify-between w-full px-3 py-2 rounded-md text-base font-medium ${
-          isMobile ? 'hover:bg-gray-700' : 'hover:bg-gray-700'
-        }`}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {title}
-        <FiChevronDown className={`ml-1 h-4 w-4 transform ${isOpen ? 'rotate-180' : ''}`} />
-      </button>
-      {isOpen && (
-        <div className={`${isMobile ? 'w-full' : 'absolute left-0 mt-2 w-64'} rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5`}>
-          <div className="py-1" role="menu" aria-orientation="vertical">
-            {options.map((option, index) => (
-              <Link
-                key={index}
-                to={option.link}
-                className="flex items-center px-4 py-2 text-base text-gray-700 hover:bg-gray-100"
-                role="menuitem"
-                onClick={() => setIsOpen(false)}
-              >
-                <span className="mr-3">{option.icon}</span>
-                <div>
-                  <p className="font-medium">{option.title}</p>
-                  <p className="text-xs text-gray-500">{option.description}</p>
-                </div>
-              </Link>
-            ))}
+  const DropdownMenu = ({ options, isOpen, setIsOpen, title, isMobile = false }) => {
+    const handleClick = () => {
+      if (title === "Product") {
+        setResourcesDropdown(false);
+      } else if (title === "Resources") {
+        setProductDropdown(false);
+      }
+      setIsOpen(!isOpen);
+    };
+
+    return (
+      <div className={`${isMobile ? 'w-full' : 'relative group'}`}>
+        <button
+          className={`flex items-center justify-between w-full px-3 py-2 rounded-md text-base font-medium ${
+            isMobile ? 'hover:bg-gray-700' : 'hover:bg-gray-700'
+          }`}
+          onClick={handleClick}
+        >
+          {title}
+          <FiChevronDown className={`ml-1 h-4 w-4 transform ${isOpen ? 'rotate-180' : ''}`} />
+        </button>
+        {isOpen && (
+          <div className={`${isMobile ? 'w-full' : 'absolute left-0 mt-2 w-64'} rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5`}>
+            <div className="py-1" role="menu" aria-orientation="vertical">
+              {options.map((option, index) => (
+                <Link
+                  key={index}
+                  to={option.link}
+                  className="flex items-center px-4 py-2 text-base text-gray-700 hover:bg-gray-100"
+                  role="menuitem"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setProductDropdown(false);
+                    setResourcesDropdown(false);
+                    setIsOpen(false);
+                  }}
+                >
+                  <span className="mr-3">{option.icon}</span>
+                  <div>
+                    <p className="font-medium">{option.title}</p>
+                    <p className="text-xs text-gray-500">{option.description}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  };
 
   return (
     <nav className="bg-gray-800 text-white">

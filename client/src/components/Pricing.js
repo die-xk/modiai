@@ -33,7 +33,7 @@ const PricingCard = ({ title, price, description, features, cta, isPopular }) =>
           onClick={() => navigate('/signup')}
           className={`w-full py-2 px-4 rounded-lg transition duration-200 ${isPopular ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
         >
-          {cta}
+          {cta || 'Get Started'}
         </button>
       </div>
     </div>
@@ -170,6 +170,7 @@ const Pricing = () => {
               "Access to resource recommendations",
               "30 days of email support post-delivery"
             ]}
+            cta="Start with Basic"
           />
 
           <PricingCard
@@ -184,6 +185,7 @@ const Pricing = () => {
               "1-hour virtual consultation with an AI expert",
               "60 days of priority email support"
             ]}
+            cta="Go Pro"
             isPopular={true}
           />
 
@@ -200,6 +202,7 @@ const Pricing = () => {
               "90 days of ongoing support post-delivery",
               "Premium access to future updates and AI resources"
             ]}
+            cta="Contact Sales"
           />
         </div>
 

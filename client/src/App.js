@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase';
 import Navbar from './components/Navbar';
@@ -48,6 +48,17 @@ const Services = () => (
   </div>
 );
 
+// Add this new component
+const ScrollToTop = () => {
+  const location = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return null;
+};
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -65,6 +76,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/app/*" element={<AppLayout />} />
         <Route path="/dashboard" element={<Dashboard />} />
